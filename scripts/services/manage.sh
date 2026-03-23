@@ -5,6 +5,9 @@ set -e
 BASE_DIR="$HOME/homelab-docker"
 LOG_FILE="$BASE_DIR/manage.log"
 
+# Max log size before rotation (1 MB)
+MAX_LOG_SIZE=1048576
+
 # Colors
 RED="\e[31m"
 GREEN="\e[32m"
@@ -13,7 +16,25 @@ BLUE="\e[34m"
 CYAN="\e[36m"
 RESET="\e[0m"
 
+# Ensure base directory exists
+mkdir -p "$BASE_DIR"
+
+# -------------------------------
+# Log rotation
+# -------------------------------
+rotate_logs() {
+    if [[ -f "$LOG_FILE" ]]; then
+        size=$(stat -c%s "$LOG_FILE")
+        if (( size > MAX_LOG_SIZE )); then
+            mv "$LOG_FILE" "$LOG_FILE.$(date +%Y%m%d-%H%M%S)"
+            touch "$LOG_FILE"
+            echo "Rotated manage.log" >> "$LOG_FILE"
+        fi
+    fi
+}
+
 log() {
+    rotate_logs
     echo -e "$1" | tee -a "$LOG_FILE"
 }
 
