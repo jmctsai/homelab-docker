@@ -3,7 +3,6 @@ services:
   gluetun:
     container_name: qbittorrent_gluetun
     image: qmcgaw/gluetun
-    # container_name: gluetun
     cap_add:
       - NET_ADMIN
     devices:
