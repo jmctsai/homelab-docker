@@ -1,5 +1,25 @@
-.env
-*.env
-!env.template
+# Ignore everything by default
+*
 
-.gitconfig
+# But keep the .gitignore itself
+!.gitignore
+
+# Keep README
+!README.md
+
+# Keep all directories (so we can selectively unignore files inside them)
+
+##########
+# APP FOLDERS
+##########
+
+# Include docker-compose.yml and .env.template in any app folder
+!*/docker-compose.yml
+!*/.env.template
+
+##########
+# SCRIPTS
+##########
+
+# Include all .sh and .template files under scripts/
+!scripts
