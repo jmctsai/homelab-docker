@@ -1,0 +1,15 @@
+[user]
+        name = First Last
+        email = email@example.com
+[init]
+        defaultBranch = main
+[core]
+        editor = vim
+        autocrlf = false
+        eol = lf
+[color]
+        ui = auto
+[fetch]
+        prune = true
+[push]
+        autoSetupRemote = true
