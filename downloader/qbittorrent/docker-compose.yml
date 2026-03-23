@@ -1,0 +1,45 @@
+version: "3"
+services:
+  gluetun:
+    container_name: qbittorrent_gluetun
+    image: qmcgaw/gluetun
+    # container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - 8888:8888/tcp # HTTP proxy
+      - 6881:6881
+      - 6881:6881/udp
+    volumes:
+      - ./gluetun-data:/gluetun
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=${VPN_TYPE}
+      - OPENVPN_USER=${OPENVPN_USER}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - OPENVPN_CIPHERS=${OPENVPN_CIPHERS}
+      - SERVER_REGIONS=${SERVER_REGIONS}
+      - SERVER_CITIES=${SERVER_CITIES}
+      # Timezone for accurate log times
+      - TZ=${TIMEZONE}
+    restart: unless-stopped
+
+  qbittorrent:
+    container_name: qbittorrent
+    image: linuxserver/qbittorrent:latest
+    network_mode: "service:gluetun"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE}
+      - WEBUI_PORT=8888
+      # - DOCKER_MODS=ghcr.io/gilbn/theme.park:qbittorrent
+      # - TP_THEME=dracula
+    volumes:
+      - ./config:/config
+      - /media/downloads:/downloads
+      - /media/j:/j
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
