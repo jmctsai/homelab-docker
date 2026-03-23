@@ -1,25 +1,59 @@
 # Ignore everything by default
 *
 
-# But keep the .gitignore itself
-!.gitignore
+# Allow directories so Git can descend into them
+!*/
 
-# Keep README
-!README.md
+# -------------------------
+# Track all docker-compose files
+# -------------------------
+!**/docker-compose.yml
+!**/docker-compose.yaml
 
-# Keep all directories (so we can selectively unignore files inside them)
+# Track env templates (but not real secrets)
+!**/.env.template
 
-##########
-# APP FOLDERS
-##########
+# -------------------------
+# Track scripts
+# -------------------------
+!scripts/**
+!scripts/**/*.sh
+!scripts/**/*.template
 
-# Include docker-compose.yml and .env.template in any app folder
-!*/docker-compose.yml
-!*/.env.template
+# -------------------------
+# Ignore real env files
+# -------------------------
+.env
+**/.env
+**/*.env
+.gitconfig
 
-##########
-# SCRIPTS
-##########
+# -------------------------
+# Ignore logs everywhere
+# -------------------------
+*.log
+**/*.log
+**/logs/
 
-# Include all .sh and .template files under scripts/
-!scripts
+# -------------------------
+# Ignore Docker runtime data
+# -------------------------
+**/config/
+**/data/
+**/downloads/
+**/cache/
+**/tmp/
+**/state/
+**/db/
+**/media/
+**/gluetun-data/
+**/volumes/
+
+# Ignore hidden/disabled service folders
+.*/
+
+# Ignore OS/editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo

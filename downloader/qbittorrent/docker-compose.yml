@@ -1,4 +1,3 @@
-version: "3"
 services:
   gluetun:
     container_name: qbittorrent_gluetun
