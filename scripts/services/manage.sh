@@ -3,7 +3,8 @@
 set -e
 
 BASE_DIR="$HOME/homelab-docker"
-LOG_FILE="$BASE_DIR/manage.log"
+LOG_DIR="$BASE_DIR/logs"
+LOG_FILE="$LOG_DIR/manage.log"
 
 # Max log size before rotation (1 MB)
 MAX_LOG_SIZE=1048576
@@ -16,8 +17,8 @@ BLUE="\e[34m"
 CYAN="\e[36m"
 RESET="\e[0m"
 
-# Ensure base directory exists
-mkdir -p "$BASE_DIR"
+# Ensure log directory exists
+mkdir -p "$LOG_DIR"
 
 # -------------------------------
 # Log rotation
