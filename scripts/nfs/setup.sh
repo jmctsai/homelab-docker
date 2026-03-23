@@ -18,8 +18,7 @@ fi
 
 # Required variables
 : "${NFS_SERVER:?NFS_SERVER is not set in .env}"
-: "${NFS_EXPORT:?NFS_EXPORT is not set in .env}"
-: "${NFS_MOUNTPOINT:?NFS_MOUNTPOINT is not set in .env}"
+: "${NFS_MOUNTS:?NFS_MOUNTS is not set in .env}"
 
 # Ensure NFS client exists
 if ! dpkg -s nfs-common >/dev/null 2>&1; then
@@ -27,11 +26,19 @@ if ! dpkg -s nfs-common >/dev/null 2>&1; then
     sudo apt update && sudo apt install -y nfs-common
 fi
 
-# Create mountpoint if missing
-sudo mkdir -p "$NFS_MOUNTPOINT"
+echo "Mounting NFS volumes from $NFS_SERVER..."
 
-# Mount
-echo "Mounting NFS share..."
-sudo mount -t nfs "$NFS_SERVER:$NFS_EXPORT" "$NFS_MOUNTPOINT" -o "${NFS_OPTIONS:-defaults}"
+for entry in "${NFS_MOUNTS[@]}"; do
+    EXPORT="${entry%%:*}"
+    MOUNTPOINT="${entry##*:}"
 
-echo "Mounted at $NFS_MOUNTPOINT"
+    echo "→ $EXPORT → $MOUNTPOINT"
+
+    sudo mkdir -p "$MOUNTPOINT"
+
+    sudo mount -t nfs "$NFS_SERVER:$EXPORT" "$MOUNTPOINT" -o "${NFS_OPTIONS:-defaults}"
+
+    echo "  Mounted at $MOUNTPOINT"
+done
+
+echo "All NFS mounts completed."
