@@ -37,7 +37,7 @@ services:
       # - TP_THEME=dracula
     volumes:
       - /docker/qbittorrent/qbittorrent-config:/config
-      - /media/downloads:/downloads
+      - /downloads:/downloads
       - /media/j:/j
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
