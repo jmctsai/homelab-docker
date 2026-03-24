@@ -14,7 +14,8 @@ else
     exit 1
 fi
 
-# Ensure CIFS client exists
+# Ensure clients exist
+dpkg -s nfs-common >/dev/null 2>&1 || sudo apt install -y nfs-common
 dpkg -s cifs-utils >/dev/null 2>&1 || sudo apt install -y cifs-utils
 
 # -------------------------
@@ -22,11 +23,30 @@ dpkg -s cifs-utils >/dev/null 2>&1 || sudo apt install -y cifs-utils
 # -------------------------
 
 list_mounts() {
+    echo "=== NFS Mounts ==="
+    for entry in "${NFS_MOUNTS[@]}"; do
+        local mountpoint="${entry##*:}"
+        mount | grep -E "on ${mountpoint} type nfs" || echo "Not mounted: $mountpoint"
+    done
+
+    echo ""
     echo "=== CIFS Mounts ==="
     for entry in "${CIFS_MOUNTS[@]}"; do
         local mountpoint="${entry##*:}"
         mount | grep -E "on ${mountpoint} type cifs" || echo "Not mounted: $mountpoint"
     done
+}
+
+remove_nfs_entry() {
+    local entry="$1"
+    local export="${entry%%:*}"
+
+    if grep -qs "^$NFS_SERVER:$export[[:space:]]" /etc/fstab; then
+        echo "→ Removing NFS from fstab: $export"
+        sudo sed -i "\|$NFS_SERVER:$export[[:space:]]|d" /etc/fstab
+    else
+        echo "→ Not in fstab: $export"
+    fi
 }
 
 remove_cifs_entry() {
@@ -42,6 +62,21 @@ remove_cifs_entry() {
 }
 
 unmount_all() {
+    echo "=== Unmounting NFS ==="
+    for entry in "${NFS_MOUNTS[@]}"; do
+        local mountpoint="${entry##*:}"
+
+        if mountpoint -q "$mountpoint"; then
+            echo "→ Unmounting $mountpoint"
+            sudo umount "$mountpoint"
+        else
+            echo "→ Not mounted: $mountpoint"
+        fi
+
+        remove_nfs_entry "$entry"
+    done
+
+    echo ""
     echo "=== Unmounting CIFS ==="
     for entry in "${CIFS_MOUNTS[@]}"; do
         local mountpoint="${entry##*:}"
@@ -58,6 +93,23 @@ unmount_all() {
 
     echo "Reloading systemd daemon..."
     sudo systemctl daemon-reload
+}
+
+add_nfs_entry() {
+    local entry="$1"
+    local export="${entry%%:*}"
+    local mountpoint="${entry##*:}"
+
+    sudo mkdir -p "$mountpoint"
+
+    local line="$NFS_SERVER:$export $mountpoint nfs ${NFS_OPTIONS} 0 0"
+
+    if grep -qs "^$NFS_SERVER:$export[[:space:]]" /etc/fstab; then
+        echo "→ NFS already in fstab: $export"
+    else
+        echo "→ Adding NFS: $export → $mountpoint"
+        echo "$line" | sudo tee -a /etc/fstab >/dev/null
+    fi
 }
 
 add_cifs_entry() {
@@ -78,6 +130,12 @@ add_cifs_entry() {
 }
 
 mount_all() {
+    echo "=== Configuring NFS mounts ==="
+    for entry in "${NFS_MOUNTS[@]}"; do
+        add_nfs_entry "$entry"
+    done
+
+    echo ""
     echo "=== Configuring CIFS mounts ==="
     for entry in "${CIFS_MOUNTS[@]}"; do
         add_cifs_entry "$entry"
