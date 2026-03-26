@@ -38,6 +38,7 @@ services:
     volumes:
       - /docker/qbittorrent/qbittorrent-config:/config
       - /media/downloads:/downloads
+      # edit watched_folders.json to set watch folders associated with categories
       - /media/j:/j
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
