@@ -8,7 +8,7 @@ dpkg -s nfs-common >/dev/null 2>&1 || apt install -y nfs-common
 dpkg -s cifs-utils >/dev/null 2>&1 || apt install -y cifs-utils
 ```
 
-# Mount NFS volume
+## Mount NFS volume
 ```
 ENTRY="192.168.1.249:/volume1/docker /docker nfs nfsvers=4,rw,noatime,async,hard,intr,_netdev 0 0"
 
