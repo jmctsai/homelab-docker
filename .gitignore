@@ -7,8 +7,6 @@
 # -------------------------
 # Track all docker-compose files
 # -------------------------
-!**/docker-compose.yml
-!**/docker-compose.yaml
 !**/compose.yaml
 
 # Track env templates (but not real secrets)
