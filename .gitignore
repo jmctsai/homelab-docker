@@ -20,7 +20,7 @@
 !scripts/**/*.template
 
 # -------------------------
-# Ignore real env files
+# Ignore real env files everywhere
 # -------------------------
 .env
 **/.env
@@ -35,23 +35,20 @@
 **/logs/
 
 # -------------------------
-# Ignore Docker runtime data
+# Ignore hidden folders at repo root ONLY
+# (like .git, .github, .vscode)
 # -------------------------
-**/config/
-**/data/
-**/downloads/
-**/cache/
-**/tmp/
-**/state/
-**/db/
-**/media/
-**/gluetun-data/
-**/volumes/
+./.*
 
-# Ignore hidden/disabled service folders
-.*/
+# -------------------------
+# Allow hidden service folders to be tracked
+# -------------------------
+!services/.*/
+!services/.*/**
 
+# -------------------------
 # Ignore OS/editor junk
+# -------------------------
 .DS_Store
 Thumbs.db
 *.swp
