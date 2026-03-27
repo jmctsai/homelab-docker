@@ -1,0 +1,11 @@
+services:
+  plex-auto-languages:
+    image: journeyover/plex-auto-languages:latest
+    container_name: plex-auto-languages
+    environment:
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      - TZ=${TIMEZONE}
+    volumes:
+      - /docker/plex-auto-languages/config:/config
+    restart: unless-stopped

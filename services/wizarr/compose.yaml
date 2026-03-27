@@ -1,8 +1,9 @@
 ---
 services:
   wizarr:
-    container_name: wizarr
     image: ghcr.io/wizarrrr/wizarr
+    container_name: wizarr
+    restart: unless-stopped
     ports:
       - 5690:5690
     volumes:
