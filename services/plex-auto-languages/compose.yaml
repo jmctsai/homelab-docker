@@ -5,7 +5,7 @@ services:
     environment:
       - PLEX_URL=${PLEX_URL}
       - PLEX_TOKEN=${PLEX_TOKEN}
-      - TZ=${TIMEZONE}
+      - TZ=America/Vancouver
     volumes:
       - /docker/plex-auto-languages/config:/config
     restart: unless-stopped

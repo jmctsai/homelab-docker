@@ -12,4 +12,4 @@ services:
       - PUID=1000 #Set UID
       - PGID=1000 #Set GID
       - DISABLE_BUILTIN_AUTH=false #Set to true ONLY if you are using another auth provider (Authelia, Authentik, etc)
-      - TZ=${TIMEZONE} #Set your timezone in .env
+      - TZ=America/Vancouver
