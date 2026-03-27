@@ -9,6 +9,7 @@
 # -------------------------
 !**/docker-compose.yml
 !**/docker-compose.yaml
+!**/compose.yaml
 
 # Track env templates (but not real secrets)
 !**/.env.template
