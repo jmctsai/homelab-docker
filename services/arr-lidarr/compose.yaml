@@ -4,6 +4,7 @@ services:
     # image: blampe/lidarr:lidarr-plugins-3.1.2.4913
     image: blampe/lidarr:latest
     container_name: lidarr
+    restart: unless-stopped
     environment:
       - PUID=0
       - PGID=0
@@ -16,4 +17,3 @@ services:
       - /media/music:/music
     ports:
       - 8686:8686
-    restart: unless-stopped

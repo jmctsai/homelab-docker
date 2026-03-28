@@ -9,4 +9,3 @@ services:
       - /docker/profilarr/config:/config
     environment:
       - TZ=America/Vancouver
-networks: {}

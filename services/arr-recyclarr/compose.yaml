@@ -10,4 +10,3 @@ services:
       - PGID=1000
       - TZ=America/Vancouver
       - RECYCLARR_CREATE_CONFIG=true
-networks: {}

@@ -16,4 +16,3 @@ services:
       - /media/anime:/anime
     ports:
       - 8989:8989
-networks: {}
