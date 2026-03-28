@@ -1,0 +1,18 @@
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr
+    container_name: bazarr
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Vancouver
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:bazarr
+      - TP_THEME=dracula
+    volumes:
+      - /docker/bazarr/config:/config
+      - /media/movies:/movies
+      - /media/shows:/shows
+      - /media/anime:/anime
+    ports:
+      - 6767:6767

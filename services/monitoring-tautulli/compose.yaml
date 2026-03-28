@@ -1,0 +1,15 @@
+services:
+  tautulli:
+    image: lscr.io/linuxserver/tautulli:latest
+    container_name: tautulli
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Vancouver
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:tautulli
+      - TP_THEME=dracula
+    volumes:
+      - /docker/tautulli/config:/config
+    ports:
+      - 8181:8181

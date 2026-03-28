@@ -1,0 +1,17 @@
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Vancouver
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:radarr
+      - TP_THEME=dracula
+    volumes:
+      - /docker/radarr/config:/config
+      - /media/downloads:/downloads
+      - /media/movies:/movies
+    ports:
+      - 7878:7878

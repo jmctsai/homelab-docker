@@ -1,0 +1,19 @@
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Vancouver
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:sonarr
+      - TP_THEME=dracula
+    volumes:
+      - /docker/sonarr/config:/config
+      - /media/downloads:/downloads
+      - /media/shows:/shows
+      - /media/anime:/anime
+    ports:
+      - 8989:8989
+networks: {}

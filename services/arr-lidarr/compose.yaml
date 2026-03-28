@@ -1,0 +1,19 @@
+services:
+  lidarr:
+    # image: lscr.io/linuxserver/lidarr:latest
+    # image: blampe/lidarr:lidarr-plugins-3.1.2.4913
+    image: blampe/lidarr:latest
+    container_name: lidarr
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=America/Vancouver
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:lidarr
+      - TP_THEME=dracula
+    volumes:
+      - /docker/lidarr/config:/config
+      - /media/downloads:/downloads
+      - /media/music:/music
+    ports:
+      - 8686:8686
+    restart: unless-stopped

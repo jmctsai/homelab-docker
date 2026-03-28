@@ -1,0 +1,13 @@
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr
+    container_name: recyclarr
+    restart: unless-stopped
+    volumes:
+      - /docker/recyclarr/config:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Vancouver
+      - RECYCLARR_CREATE_CONFIG=true
+networks: {}

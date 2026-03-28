@@ -1,0 +1,12 @@
+services:
+  profilarr:
+    image: santiagosayshey/profilarr:latest # Use :beta for early access to new features
+    container_name: profilarr
+    restart: unless-stopped
+    ports:
+      - 6868:6868
+    volumes:
+      - /docker/profilarr/config:/config
+    environment:
+      - TZ=America/Vancouver
+networks: {}
