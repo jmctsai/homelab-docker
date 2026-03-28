@@ -5,4 +5,3 @@ services:
     restart: unless-stopped
     volumes:
       - /docker/isponsorblocktv/data:/app/data #enter the same pathway as you used for your configurator in step 1
-networks: {}

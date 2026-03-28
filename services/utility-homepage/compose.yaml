@@ -2,10 +2,10 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
+    restart: unless-stopped
     ports:
       - 3000:3000
     env_file: .env # use .env
     volumes:
       - /docker/homepage/config:/config
       - /var/run/docker.sock:/var/run/docker.sock # pass local proxy
-    restart: unless-stopped

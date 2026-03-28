@@ -1,4 +1,3 @@
-# Use root/example as user/password credentials
 services:
   adminer:
     image: adminer
@@ -6,4 +5,3 @@ services:
     restart: unless-stopped
     ports:
       - 8090:8080
-networks: {}

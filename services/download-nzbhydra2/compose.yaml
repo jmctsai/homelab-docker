@@ -2,6 +2,7 @@ services:
   nzbhydra2:
     image: lscr.io/linuxserver/nzbhydra2:latest
     container_name: nzbhydra2
+    restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
@@ -11,4 +12,3 @@ services:
       - /media/downloads:/downloads
     ports:
       - 5076:5076
-    restart: unless-stopped
