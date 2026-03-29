@@ -12,7 +12,7 @@ services:
       - 6881:6881
       - 6881:6881/udp
     volumes:
-      - /docker/qbittorrent/gluetun-data:/gluetun
+      - ./gluetun-data:/gluetun
     environment:
       - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
       - VPN_TYPE=${VPN_TYPE}
@@ -37,6 +37,6 @@ services:
       # - DOCKER_MODS=ghcr.io/gilbn/theme.park:qbittorrent
       # - TP_THEME=dracula
     volumes:
-      - /docker/qbittorrent/qbittorrent-config:/config
+      - ./qbittorrent-config:/config
       - /media/downloads:/downloads
       - /etc/localtime:/etc/localtime:ro
