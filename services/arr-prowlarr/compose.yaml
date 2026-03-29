@@ -10,6 +10,7 @@ services:
       - DOCKER_MODS=ghcr.io/gilbn/theme.park:prowlarr
       - TP_THEME=dracula
     volumes:
-      - /docker/prowlarr/config:/config
+      - ./config:/config
+      - /docker/prowlarr/backups:/backups
     ports:
       - 9696:9696

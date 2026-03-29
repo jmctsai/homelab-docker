@@ -11,6 +11,7 @@ services:
       - TP_THEME=dracula
     volumes:
       - ./config:/config
+      - /docker/radarr/backups:/backups
       - /media/downloads:/downloads
       - /media/movies:/movies
     ports:

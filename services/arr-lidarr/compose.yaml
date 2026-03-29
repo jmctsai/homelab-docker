@@ -12,7 +12,8 @@ services:
       - DOCKER_MODS=ghcr.io/gilbn/theme.park:lidarr
       - TP_THEME=dracula
     volumes:
-      - /docker/lidarr/config:/config
+      - ./config:/config
+      - /docker/lidarr/backups:/backups
       - /media/downloads:/downloads
       - /media/music:/music
     ports:

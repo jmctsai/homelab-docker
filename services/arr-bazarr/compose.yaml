@@ -10,7 +10,8 @@ services:
       - DOCKER_MODS=ghcr.io/gilbn/theme.park:bazarr
       - TP_THEME=dracula
     volumes:
-      - /docker/bazarr/config:/config
+      - ./config:/config
+      - /docker/bazarr/backups:/backups
       - /media/movies:/movies
       - /media/shows:/shows
       - /media/anime:/anime
