@@ -10,7 +10,7 @@ services:
       - DOCKER_MODS=ghcr.io/gilbn/theme.park:sonarr
       - TP_THEME=dracula
     volumes:
-      - /docker/sonarr/config:/config
+      - ./config:/config
       - /media/downloads:/downloads
       - /media/shows:/shows
       - /media/anime:/anime

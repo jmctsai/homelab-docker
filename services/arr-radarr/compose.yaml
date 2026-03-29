@@ -10,7 +10,7 @@ services:
       - DOCKER_MODS=ghcr.io/gilbn/theme.park:radarr
       - TP_THEME=dracula
     volumes:
-      - /docker/radarr/config:/config
+      - ./config:/config
       - /media/downloads:/downloads
       - /media/movies:/movies
     ports:
