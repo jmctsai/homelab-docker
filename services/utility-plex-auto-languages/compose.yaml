@@ -8,4 +8,4 @@ services:
       - PLEX_TOKEN=${PLEX_TOKEN}
       - TZ=America/Vancouver
     volumes:
-      - /docker/plex-auto-languages/config:/config
+      - ./config:/config
