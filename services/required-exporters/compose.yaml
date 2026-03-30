@@ -1,0 +1,22 @@
+services:
+  nodeexporter:
+    image: prom/node-exporter:latest
+    container_name: nodeexporter
+    restart: unless-stopped
+    pid: host
+    network_mode: host
+    command:
+      - '--path.rootfs=/host'
+    volumes:
+      - /:/host:ro,rslave
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
