@@ -7,5 +7,5 @@ services:
       - 3000:3000
     env_file: .env # use .env
     volumes:
-      - /docker/homepage/config:/config
+      - ./config:/config
       - /var/run/docker.sock:/var/run/docker.sock # pass local proxy
