@@ -1,13 +1,12 @@
 services:
   lidarr:
-    # image: lscr.io/linuxserver/lidarr:latest
-    # image: blampe/lidarr:lidarr-plugins-3.1.2.4913
-    image: blampe/lidarr:latest
+    image: lscr.io/linuxserver/lidarr:nightly
+    # image: blampe/lidarr:latest
     container_name: lidarr
     restart: unless-stopped
     environment:
-      - PUID=0
-      - PGID=0
+      - PUID=1000
+      - PGID=1000
       - TZ=America/Vancouver
       - DOCKER_MODS=ghcr.io/gilbn/theme.park:lidarr
       - TP_THEME=dracula
