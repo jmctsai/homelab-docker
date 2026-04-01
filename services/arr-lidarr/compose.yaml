@@ -17,3 +17,24 @@ services:
       - /media/music:/music
     ports:
       - 8686:8686
+
+  slskd:
+    container_name: slskd
+    image: slskd/slskd:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - SLSKD_REMOTE_CONFIGURATION=true
+    ports:
+      - "5030:5030"
+      - "40300:50300"
+      - "5031:5031"
+    volumes:
+      - ./slskd/app/:/app
+      - ./slskd/config:/config
+      - /media/downloads/soulseek:/downloads/soulseek
+      - /media/downloads/soulseek/incomplete:/downloads/soulseek/incomplete
+      # Remember: Add Remote Path Mapping in Lidarr Download Client:
+      # Host           Remote Path      Local Path
+      # 192.168.1.203  /app/downloads/  /downloads/soulseek/
