@@ -1,0 +1,106 @@
+# Homepage Services
+# https://gethomepage.dev/latest/configs/services
+
+- Media:
+    - Plex:
+        icon: plex.svg
+        href: "{{HOMEPAGE_VAR_PLEX_URL}}"
+
+    - Seerr:
+        icon: seerr.png
+        href: "{{HOMEPAGE_VAR_JELLYSEERR_URL}}"
+
+    - Tautulli:
+        icon: tautulli.svg
+        href: "{{HOMEPAGE_VAR_TAUTULLI_URL}}"
+
+    - Tracearr:
+        icon: tracearr.png
+        href: "{{HOMEPAGE_VAR_TRACEARR_URL}}"
+
+- Media Automation:
+    - Sonarr:
+        icon: sonarr.svg
+        href: "{{HOMEPAGE_VAR_SONARR_URL}}"
+
+    - Radarr:
+        icon: radarr.svg
+        href: "{{HOMEPAGE_VAR_RADARR_URL}}"
+
+    - Lidarr:
+        icon: lidarr.svg
+        href: "{{HOMEPAGE_VAR_LIDARR_URL}}"
+
+    - Prowlarr:
+        icon: prowlarr.svg
+        href: "{{HOMEPAGE_VAR_PROWLARR_URL}}"
+
+    - qBittorrent:
+        icon: qbittorrent.svg
+        href: "{{HOMEPAGE_VAR_QBITTORRENT_URL}}"
+
+    - SABnzbd:
+        icon: sabnzbd.svg
+        href: "{{HOMEPAGE_VAR_SABNZBD_URL}}"
+
+    - slskd:
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/slskd.png
+        href: "{{HOMEPAGE_VAR_SLSKD_URL}}"
+
+    - Maintainerr:
+        icon: maintainerr.png
+        href: "{{HOMEPAGE_VAR_MAINTAINERR_URL_INTERNAL}}"
+
+- Infrastructure:
+    - Proxmox VE 01:
+        icon: proxmox.svg
+        href: "{{HOMEPAGE_VAR_PROXMOX_URL_INTERNAL}}"
+
+    - Proxmox VE 02:
+        icon: proxmox.svg
+        href: "{{HOMEPAGE_VAR_PROXMOX2_URL_INTERNAL}}"
+
+    - Proxmox VE 03:
+        icon: proxmox.svg
+        href: "{{HOMEPAGE_VAR_PROXMOX3_URL_INTERNAL}}"
+
+    - Proxmox VE 04:
+        icon: proxmox.svg
+        href: "{{HOMEPAGE_VAR_PROXMOX4_URL_INTERNAL}}"
+
+    - Proxmox Backup Server:
+        icon: proxmox-backup-server.svg
+        href: "{{HOMEPAGE_VAR_PBS_URL_INTERNAL}}"
+
+    - Nginx Proxy Manager:
+        icon: nginx-proxy-manager.svg
+        href: "{{HOMEPAGE_VAR_NGINX_PROXY_MANAGER_URL}}"
+
+    - Technitium DNS 01:
+        icon: technitium.png
+        href: "{{HOMEPAGE_VAR_TECHNITIUM_URL_INTERNAL}}"
+
+- Monitoring:
+    - Grafana:
+        icon: grafana.svg
+        href: "{{HOMEPAGE_VAR_GRAFANA_URL}}"
+
+    - Uptime Kuma:
+        icon: uptime-kuma.svg
+        href: "{{HOMEPAGE_VAR_UPTIMEKUMA_URL}}"
+        description: internal
+
+    - Uptime Robot:
+        icon: https://play-lh.googleusercontent.com/cUrv0t00FYQ1GKLuOTvv8qjo1lSDjqZC16IOp3Fb6ijew6Br5m4o16HhDp0GBu_Bw8Y=w240-h480-rw
+        href: https://dashboard.uptimerobot.com/monitors
+        description: external
+
+- Home & IoT:
+    - Home Assistant:
+        icon: home-assistant.svg
+        href: "{{HOMEPAGE_VAR_HOMEASSISTANT_URL}}"
+
+- Storage:
+    - Synology NAS:
+        icon: synology.svg
+        href: "{{HOMEPAGE_VAR_NAS_URL}}"

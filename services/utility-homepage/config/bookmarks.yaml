@@ -1,0 +1,28 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/bookmarks
+
+- Bookmarks:
+    - Copilot:
+        - icon: github-copilot-dark.png
+          abbr: copilot
+          href: https://copilot.microsoft.com/
+
+    - Lost Ark Reddit:
+        - icon: reddit.png
+          abbr: r
+          href: https://www.reddit.com/r/lostarkgame/
+
+    - Lost Ark Nexus:
+        - abbr: loa
+          href: https://lostark.nexus/
+
+    - Mainsail:
+        - icon: mainsail.png
+          abbr: ms
+          href: "{{HOMEPAGE_VAR_MAINSAIL_URL}}"
+
+    - Syncthing:
+        - icon: syncthing.png
+          abbr: st
+          href: "{{HOMEPAGE_VAR_SYNCTHING_URL}}"

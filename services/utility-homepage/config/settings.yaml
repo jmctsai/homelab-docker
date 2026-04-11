@@ -1,0 +1,53 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/settings
+
+title: Sweet Home
+# favicon: https://www.google.com/favicon.ico
+background:
+  image: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
+  blur: sm # sm, md, xl... see https://tailwindcss.com/docs/backdrop-blur
+  saturate: 100 # 0, 50, 100... see https://tailwindcss.com/docs/backdrop-saturate
+  brightness: 50 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
+  opacity: 100 # 0-100
+
+theme: dark
+color: neutral
+
+useEqualHeights: true
+
+hideVersion: true
+
+layout:
+
+  # Media
+  Media:
+    style: row
+    columns: 3
+
+  # Media Automation
+  Media Automation:
+    style: row
+    columns: 3
+
+  # Infrastructure
+  Infrastructure:
+    style: row
+    columns: 3
+
+  # Monitoring
+  Monitoring:
+    # style: row
+
+  # Home & IoT (1 item → let it auto-size)
+  Home & IoT:
+    # style: row
+
+  # Storage (1 item → auto-size)
+  Storage:
+    # style: row
+
+  # Bookmarks (many items → fixed columns)
+  Bookmarks:
+    style: row
+    columns: 3

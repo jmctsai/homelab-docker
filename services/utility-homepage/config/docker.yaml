@@ -1,0 +1,12 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/docker/
+
+# Using Docker Socket Proxy
+# my-docker:
+#     host: dockerproxy
+#     port: 2375
+
+# Using Socket Directly
+my-docker:
+    socket: /var/run/docker.sock
