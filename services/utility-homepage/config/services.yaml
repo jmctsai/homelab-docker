@@ -100,6 +100,10 @@
         icon: home-assistant.svg
         href: "{{HOMEPAGE_VAR_HOMEASSISTANT_URL}}"
 
+    - JetKVM:
+        icon: jetkvm.png
+        href: "{{HOMEPAGE_VAR_JETKVM_URL_INTERNAL}}"
+
 - Storage:
     - Synology NAS:
         icon: synology.svg
