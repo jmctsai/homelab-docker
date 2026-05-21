@@ -31,11 +31,13 @@
 services:
   broker:
     image: docker.io/library/redis:8
+    container_name: paperless-ngx-redis
     restart: unless-stopped
     volumes:
       - ./data/broker/redisdata:/data
   db:
     image: docker.io/library/postgres:18
+    container_name: paperless-ngx-postgres
     restart: unless-stopped
     volumes:
       - ./data/db/pgdata:/var/lib/postgresql
@@ -45,6 +47,7 @@ services:
       POSTGRES_PASSWORD: paperless
   webserver:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    container_name: paperless-ngx-webserver
     restart: unless-stopped
     depends_on:
       - db
@@ -52,7 +55,7 @@ services:
       - gotenberg
       - tika
     ports:
-      - "8000:8000"
+      - 8000:8000
     volumes:
       - ./data/webserver/data:/usr/src/paperless/data
       - ./data/webserver/media:/usr/src/paperless/media
@@ -67,13 +70,16 @@ services:
       PAPERLESS_TIKA_ENDPOINT: http://tika:9998
   gotenberg:
     image: docker.io/gotenberg/gotenberg:8.25
+    container_name: paperless-ngx-gotenberg
     restart: unless-stopped
     # The gotenberg chromium route is used to convert .eml files. We do not
     # want to allow external content like tracking pixels or even javascript.
     command:
-      - "gotenberg"
-      - "--chromium-disable-javascript=true"
-      - "--chromium-allow-list=file:///tmp/.*"
+      - gotenberg
+      - --chromium-disable-javascript=true
+      - --chromium-allow-list=file:///tmp/.*
   tika:
     image: docker.io/apache/tika:latest
+    container_name: paperless-ngx-tika
     restart: unless-stopped
+networks: {}
