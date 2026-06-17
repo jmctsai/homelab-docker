@@ -51,6 +51,9 @@ set_alias dcd    "docker compose down"
 set_alias dcpull "docker compose pull"
 set_alias dcu    "docker compose up -d"
 set_alias dps    "docker ps"
+set_alias gaa    "git add ."
+set_alias gcm    "git commit -m"
+set_alias gp     "git push"
 
 # -----------------------------
 # Ensure .bashrc sources aliases
