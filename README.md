@@ -25,16 +25,16 @@ source ~/.bashrc
 
 Script to apply Git settings for this repository defined in `/scripts/gitconfig/.gitconfig`
 ```sh
-chmod +x ~/homelab-docker/scripts/git/setup-gitconfig.sh
-~/homelab-docker/scripts/git/setup-gitconfig.sh
+chmod +x ~/homelab-docker/scripts/gitconfig/setup.sh
+~/homelab-docker/scripts/gitconfig/setup.sh
 ```
 
 ### 📁 NFS Mount Manager
 
 Interactive script to mount, unmount, remount, or list NFS shares defined in scripts `/scripts/nfs/.env`.
 ```sh
-chmod +x ~/homelab-docker/scripts/nfs/setup.sh
-~/homelab-docker/scripts/nfs/setup.sh
+chmod +x ~/homelab-docker/scripts/nfs/mount.sh
+~/homelab-docker/scripts/nfs/mount.sh
 ```
 
 ---
