@@ -48,8 +48,6 @@ just status all          # show all containers, including stopped
 just logs sonarr         # show logs for an app (searches all groups)
 ```
 
-> **Deprecated:** `scripts/services/manage.sh` is no longer maintained. Use the `justfile` recipes above instead.
-
 ## Helper Scripts
 
 ### ⚙️ Initial Git Config Setup
