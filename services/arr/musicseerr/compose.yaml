@@ -1,0 +1,16 @@
+services:
+  musicseerr:
+    image: ghcr.io/habirabbu/musicseerr:latest
+    container_name: musicseerr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - PORT=8688
+      - TZ=America/Vancouver
+    ports:
+      - "8688:8688"
+    volumes:
+      - ./config:/app/config
+      - ./cache:/app/cache
+      - /media/music:/music:ro
+    restart: unless-stopped
