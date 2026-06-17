@@ -13,6 +13,15 @@ for pkg in nfs-common cifs-utils; do
     fi
 done
 
+# -----------------------------
+# Ensure just is installed
+# -----------------------------
+if ! command -v just &>/dev/null; then
+    echo "Installing just..."
+    curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo bash -s -- --to /usr/local/bin
+else
+    echo "OK: just $(just --version)"
+fi
 
 USER_HOME="${HOME:-/root}"
 RC_FILE="$USER_HOME/.bashrc"
