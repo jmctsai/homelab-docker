@@ -47,6 +47,12 @@
 !services/.*/**
 
 # -------------------------
+# Allow justfiles at repo root and in services
+# -------------------------
+!justfile
+!just/*
+
+# -------------------------
 # Ignore OS/editor junk
 # -------------------------
 .DS_Store
