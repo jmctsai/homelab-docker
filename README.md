@@ -21,6 +21,22 @@ After it completes, activate the new aliases in your current shell:
 source ~/.bashrc
 ```
 
+### ⚙️ Initial Git Config Setup
+
+Script to apply Git settings for this repository defined in `/scripts/gitconfig/.gitconfig`
+```sh
+chmod +x ~/homelab-docker/scripts/git/setup-gitconfig.sh
+~/homelab-docker/scripts/git/setup-gitconfig.sh
+```
+
+### 📁 NFS Mount Manager
+
+Interactive script to mount, unmount, remount, or list NFS shares defined in scripts `/scripts/nfs/.env`.
+```sh
+chmod +x ~/homelab-docker/scripts/nfs/setup.sh
+~/homelab-docker/scripts/nfs/setup.sh
+```
+
 ---
 
 ## Using `.env.template`
@@ -46,22 +62,4 @@ just update arr          # pull latest images + restart for the arr group
 just status              # show running containers
 just status all          # show all containers, including stopped
 just logs sonarr         # show logs for an app (searches all groups)
-```
-
-## Helper Scripts
-
-### ⚙️ Initial Git Config Setup
-
-Script to apply Git settings for this repository defined in `/scripts/gitconfig/.gitconfig`
-```sh
-chmod +x ~/homelab-docker/scripts/git/setup-gitconfig.sh
-~/homelab-docker/scripts/git/setup-gitconfig.sh
-```
-
-### 📁 NFS Mount Manager
-
-Interactive script to mount, unmount, remount, or list NFS shares defined in scripts `/scripts/nfs/.env`.
-```sh
-chmod +x ~/homelab-docker/scripts/nfs/setup.sh
-~/homelab-docker/scripts/nfs/setup.sh
 ```
