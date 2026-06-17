@@ -8,4 +8,5 @@ services:
     env_file: .env # use .env
     volumes:
       - ./config:/config
-      - /var/run/docker.sock:/var/run/docker.sock # pass local proxy
+      # - /var/run/docker.sock:/var/run/docker.sock # pass local proxy
+networks: {}
