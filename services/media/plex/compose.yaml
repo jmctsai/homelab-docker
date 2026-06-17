@@ -1,0 +1,21 @@
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    # image: plexinc/pms-docker
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      # - VERSION=docker
+      # - PLEX_CLAIM=${PLEX_CLAIM}
+    volumes:
+      - ./conf:/config
+        #- /docker/plex/conf:/config
+      - /media/shows:/shows
+      - /media/anime:/anime
+      - /media/movies:/movies
+      - /media/music:/music
+      - /media/music-yt:/music-yt
+    restart: unless-stopped
+networks: {}
