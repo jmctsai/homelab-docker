@@ -23,12 +23,14 @@ services:
       - SERVER_CITIES=${SERVER_CITIES}
       # Timezone for accurate log times
       - TZ=America/Vancouver
-
+      # Try fix
+      - DNS=1.1.1.1,1.0.0.1
+      - DNSSEC=off
   qbittorrent:
     image: linuxserver/qbittorrent:latest
     container_name: qbittorrent
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
     environment:
       - PUID=1000
       - PGID=1000
@@ -39,4 +41,6 @@ services:
     volumes:
       - ./qbittorrent-config:/config
       - /media/downloads:/downloads
+      - /media/j/unsorted:/unsorted
       - /etc/localtime:/etc/localtime:ro
+networks: {}
