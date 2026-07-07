@@ -14,15 +14,17 @@ services:
         source: /media
         target: /media
         read_only: true
+    devices:
+      - /dev/dri:/dev/dri
       # # Optional - extra fonts to be used during transcoding with subtitle burn-in
       # - type: bind
       #   source: /path/to/fonts
       #   target: /usr/local/share/fonts/custom
       #   read_only: true
-    restart: 'unless-stopped'
+    restart: "unless-stopped"
     # Optional - alternative address used for autodiscovery
     environment:
       - JELLYFIN_PublishedServerUrl=${JELLYFIN_URL}
     # Optional - may be necessary for docker healthcheck to pass if running in host network mode
     extra_hosts:
-      - 'host.docker.internal:host-gateway'
+      - "host.docker.internal:host-gateway"
