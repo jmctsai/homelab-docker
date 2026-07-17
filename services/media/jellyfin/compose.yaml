@@ -10,10 +10,11 @@ services:
     volumes:
       - ./config:/config
       - ./cache:/cache
-      - type: bind
-        source: /media
-        target: /media
-        read_only: true
+      - /media:/media:ro
+      # - type: bind
+      #   source: /media
+      #   target: /media
+      #   read_only: true
     devices:
       - /dev/dri:/dev/dri
       # # Optional - extra fonts to be used during transcoding with subtitle burn-in
