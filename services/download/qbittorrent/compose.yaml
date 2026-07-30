@@ -1,7 +1,7 @@
 services:
   gluetun:
     image: qmcgaw/gluetun
-    container_name: gluetun_qbittorrent
+    container_name: qbittorrent_gluetun
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
