@@ -10,17 +10,9 @@ services:
     volumes:
       - ./config:/config
       - ./cache:/cache
-      - type: bind
-        source: /media
-        target: /media
-        read_only: true
+      - /media:/media:ro
     devices:
       - /dev/dri:/dev/dri
-      # # Optional - extra fonts to be used during transcoding with subtitle burn-in
-      # - type: bind
-      #   source: /path/to/fonts
-      #   target: /usr/local/share/fonts/custom
-      #   read_only: true
     restart: "unless-stopped"
     # Optional - alternative address used for autodiscovery
     environment:
