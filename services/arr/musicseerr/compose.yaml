@@ -2,6 +2,7 @@ services:
   musicseerr:
     image: ghcr.io/habirabbu/musicseerr:latest
     container_name: musicseerr
+    restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
@@ -12,5 +13,14 @@ services:
     volumes:
       - ./config:/app/config
       - ./cache:/app/cache
-      - /media/music:/music:ro
-    restart: unless-stopped
+
+      - type: volume
+        source: nfs_media
+        target: /music
+        read_only: true
+        volume:
+          subpath: music
+
+volumes:
+  nfs_media:
+    external: true
