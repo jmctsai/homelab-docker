@@ -5,6 +5,14 @@
 !*/
 
 # -------------------------
+# Ignore Application Runtime / Data Folders (CRITICAL)
+# -------------------------
+**/config/
+**/data/
+**/database/
+**/databases/
+
+# -------------------------
 # Track all docker-compose files
 # -------------------------
 !**/compose.yaml
