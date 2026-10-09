@@ -8,8 +8,25 @@ services:
       - PGID=1000
       - TZ=America/Vancouver
     volumes:
+      # Keep local config local
       - ./config:/config
-      - /media/downloads:/downloads
-      - /media/downloads/temp:/incomplete-downloads
+
+      # 1. Downloads subpath from nfs_media (was /media/downloads)
+      - type: volume
+        source: nfs_media
+        target: /downloads
+        volume:
+          subpath: downloads
+
+      # 2. Incomplete subpath from nfs_media (was /media/downloads/temp)
+      - type: volume
+        source: nfs_media
+        target: /incomplete-downloads
+        volume:
+          subpath: downloads/temp
     ports:
       - 8889:8080
+
+volumes:
+  nfs_media:
+    external: true
