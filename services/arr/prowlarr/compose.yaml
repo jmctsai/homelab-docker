@@ -10,7 +10,19 @@ services:
       - DOCKER_MODS=ghcr.io/gilbn/theme.park:prowlarr
       - TP_THEME=dracula
     volumes:
+      # Keep local config local
       - ./config:/config
-      - /docker/prowlarr/backups:/backups
+
+      # 1. Backups subpath from nfs_docker
+      - type: volume
+        source: nfs_docker
+        target: /backups
+        volume:
+          subpath: prowlarr/backups
     ports:
       - 9696:9696
+
+volumes:
+  # Pull the infrastructure shares you defined in your volumes stack
+  nfs_docker:
+    external: true
