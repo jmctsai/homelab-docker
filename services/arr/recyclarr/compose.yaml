@@ -1,12 +1,21 @@
 services:
   recyclarr:
-    image: ghcr.io/recyclarr/recyclarr
+    image: ghcr.io/recyclarr/recyclarr:8
     container_name: recyclarr
     restart: unless-stopped
     volumes:
-      - /docker/recyclarr/config:/config
+      - type: volume
+        source: nfs_docker
+        target: /config
+        volume:
+          subpath: recyclarr/config
+
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Vancouver
       - RECYCLARR_CREATE_CONFIG=true
+
+volumes:
+  nfs_docker:
+    external: true
