@@ -3,14 +3,24 @@ services:
   whisparr:
     image: ghcr.io/thespad/whisparr:latest
     container_name: whisparr
+    restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Vancouver
     volumes:
       - ./config:/config
-      - /media/downloads:/downloads
-      - /media/j/whisparr:/whisparr
+
+      - type: volume
+        source: nfs_media
+        target: /downloads
+        volume:
+          subpath: downloads
+
+      - type: volume
+        source: nfs_media
+        target: /whisparr
+        volume:
+          subpath: /j/whisparr
     ports:
       - 6969:6969
-    restart: unless-stopped
