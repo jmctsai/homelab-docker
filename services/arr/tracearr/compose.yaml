@@ -48,7 +48,7 @@ services:
       redis:
         condition: service_healthy
     volumes:
-      - tracearr_backups:/data/backup
+      - .tracearr_backups:/data/backup
     restart: unless-stopped
     networks:
       - tracearr-network
