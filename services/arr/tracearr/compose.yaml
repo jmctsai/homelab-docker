@@ -69,6 +69,7 @@ services:
       - POSTGRES_USER=tracearr
       - POSTGRES_PASSWORD=${DB_PASSWORD:-tracearr}
       - POSTGRES_DB=tracearr
+      - TS_BOOT_ALLOW_ROOT_VOLUME=true
     volumes:
       - ./timescale_data:/home/postgres/pgdata/data
     healthcheck:
