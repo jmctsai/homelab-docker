@@ -5,10 +5,6 @@ services:
     restart: unless-stopped
     ports:
       - "11011:11011"
-    volumes:
-      - ./config:/config
-      # Mount your downloads directory if needed
-      - /media/downloads:/downloads
     environment:
       - PORT=11011
       - BASE_PATH=
@@ -16,6 +12,15 @@ services:
       - PGID=1000
       - UMASK=022
       - TZ=America/Vancouver
+    volumes:
+      - ./config:/config
+
+      # Mount downloads subpath from external nfs_media volume
+      - type: volume
+        source: nfs_media
+        target: /downloads
+        volume:
+          subpath: downloads
     # Health check configuration
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:11011/health"]
@@ -23,3 +28,8 @@ services:
       timeout: 10s         # Allow up to 10 seconds for response
       start_period: 30s    # Wait 30 seconds before first check
       retries: 3           # Mark unhealthy after 3 consecutive failures
+
+volumes:
+  # Pull the infrastructure share you defined in your volumes stack
+  nfs_media:
+    external: true
