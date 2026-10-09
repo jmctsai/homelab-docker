@@ -10,9 +10,35 @@ services:
       - DOCKER_MODS=ghcr.io/gilbn/theme.park:radarr
       - TP_THEME=dracula
     volumes:
+      # Keep local config local
       - ./config:/config
-      - /docker/radarr/backups:/backups
-      - /media/downloads:/downloads
-      - /media/movies:/movies
+
+      # 1. Backups subpath from nfs_docker
+      - type: volume
+        source: nfs_docker
+        target: /backups
+        volume:
+          subpath: radarr/backups
+
+      # 2. Downloads subpath from nfs_media
+      - type: volume
+        source: nfs_media
+        target: /downloads
+        volume:
+          subpath: downloads
+
+      # 3. Movies subpath from nfs_media
+      - type: volume
+        source: nfs_media
+        target: /movies
+        volume:
+          subpath: movies
     ports:
       - 7878:7878
+
+volumes:
+  # Pull the infrastructure shares you defined in your volumes stack
+  nfs_docker:
+    external: true
+  nfs_media:
+    external: true

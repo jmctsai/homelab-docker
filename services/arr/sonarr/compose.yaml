@@ -10,10 +10,42 @@ services:
       - DOCKER_MODS=ghcr.io/gilbn/theme.park:sonarr
       - TP_THEME=dracula
     volumes:
+      # Keep local config local
       - ./config:/config
-      - /docker/sonarr/backups:/backups
-      - /media/downloads:/downloads
-      - /media/shows:/shows
-      - /media/anime:/anime
+
+      # 1. Backups subpath from nfs_docker
+      - type: volume
+        source: nfs_docker
+        target: /backups
+        volume:
+          subpath: sonarr/backups
+
+      # 2. Downloads subpath from nfs_media
+      - type: volume
+        source: nfs_media
+        target: /downloads
+        volume:
+          subpath: downloads
+
+      # 3. Shows subpath from nfs_media
+      - type: volume
+        source: nfs_media
+        target: /shows
+        volume:
+          subpath: shows
+
+      # 4. Anime subpath from nfs_media
+      - type: volume
+        source: nfs_media
+        target: /anime
+        volume:
+          subpath: anime
     ports:
       - 8989:8989
+
+volumes:
+  # Pull the infrastructure shares you defined in your volumes stack
+  nfs_docker:
+    external: true
+  nfs_media:
+    external: true

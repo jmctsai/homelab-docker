@@ -11,10 +11,29 @@ services:
       - DOCKER_MODS=ghcr.io/gilbn/theme.park:lidarr
       - TP_THEME=dracula
     volumes:
+      # Keep local config local
       - ./config:/config
-      - /docker/lidarr/backups:/backups
-      - /media/downloads:/downloads
-      - /media/music:/music
+
+      # 1. Backups subpath from nfs_docker
+      - type: volume
+        source: nfs_docker
+        target: /backups
+        volume:
+          subpath: lidarr/backups
+
+      # 2. Downloads subpath from nfs_media
+      - type: volume
+        source: nfs_media
+        target: /downloads
+        volume:
+          subpath: downloads
+
+      # 3. Music subpath from nfs_media
+      - type: volume
+        source: nfs_media
+        target: /music
+        volume:
+          subpath: music
     ports:
       - 8686:8686
 
@@ -31,10 +50,30 @@ services:
       - "40300:50300"
       - "5031:5031"
     volumes:
+      # Keep local config and app data local
       - ./slskd/app/:/app
       - ./slskd/config:/config
-      - /media/downloads/soulseek:/downloads/soulseek
-      - /media/downloads/soulseek/incomplete:/downloads/soulseek/incomplete
+
+      # 1. Completed downloads subpath from nfs_media
+      - type: volume
+        source: nfs_media
+        target: /downloads/soulseek
+        volume:
+          subpath: downloads/soulseek
+
+      # 2. Incomplete downloads subpath from nfs_media
+      - type: volume
+        source: nfs_media
+        target: /downloads/soulseek/incomplete
+        volume:
+          subpath: downloads/soulseek/incomplete
       # Remember: Add Remote Path Mapping in Lidarr Download Client:
       # Host           Remote Path      Local Path
       # 192.168.1.203  /app/downloads/  /downloads/soulseek/
+
+volumes:
+  # Pull the infrastructure shares you defined in your volumes stack
+  nfs_docker:
+    external: true
+  nfs_media:
+    external: true
