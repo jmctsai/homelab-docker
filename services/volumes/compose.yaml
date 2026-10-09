@@ -1,0 +1,31 @@
+# services/volumes/compose.yaml
+services:
+  # This dummy container pins all four network shares open globally in Docker
+  volume_provisioner:
+    image: alpine:latest
+    container_name: volume_provisioner
+    restart: always
+    entrypoint: ["tail", "-f", "/dev/null"]
+    volumes:
+      - nfs_docker:/mnt/docker
+      - nfs_media:/mnt/media
+
+# Check
+# docker run --rm -it -v nfs_media:/mnt/media -v nfs_docker:/mnt/docker alpine sh
+
+volumes:
+  nfs_docker:
+    name: nfs_docker
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=10.123.20.99,rw,noatime,hard,tcp,nfsvers=4"
+      device: ":/volume1/docker"
+
+  nfs_media:
+    name: nfs_media
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=10.123.20.99,rw,noatime,hard,tcp,nfsvers=4"
+      device: ":/volume1/media"
