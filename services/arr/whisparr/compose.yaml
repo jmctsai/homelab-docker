@@ -21,6 +21,11 @@ services:
         source: nfs_media
         target: /whisparr
         volume:
-          subpath: /j/whisparr
+          subpath: j/whisparr
     ports:
       - 6969:6969
+
+volumes:
+  # Pull the infrastructure shares you defined in your volumes stack
+  nfs_media:
+    external: true
