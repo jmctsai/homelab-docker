@@ -1,11 +1,3 @@
-#
-# WARNING: Make sure to use the docker-compose.yml of the current release:
-#
-# https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
-#
-# The compose file on main may not be compatible with the latest release.
-#
-
 name: immich
 
 services:
@@ -16,8 +8,12 @@ services:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
     volumes:
-      # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
-      - ${UPLOAD_LOCATION}:/usr/src/app/upload
+      # Upload subpath from nfs_media (was /media/pictures via UPLOAD_LOCATION)
+      - type: volume
+        source: nfs_media
+        target: /usr/src/app/upload
+        volume:
+          subpath: pictures
       - /etc/localtime:/etc/localtime:ro
     env_file:
       - .env
@@ -71,3 +67,5 @@ services:
 
 volumes:
   model-cache:
+  nfs_media:
+    external: true
