@@ -3,9 +3,6 @@ services:
   whisparr:
     image: ghcr.io/hotio/whisparr:v3
     container_name: whisparr
-    restart: unless-stopped
-    ports:
-      - 6969:6969
     environment:
       - PUID=1000
       - PGID=1000
@@ -14,21 +11,8 @@ services:
       - WEBUI_PORTS=6969/tcp
     volumes:
       - ./config:/config
-      - ./data:/data
-
-      - type: volume
-        source: nfs_media
-        target: /downloads
-        volume:
-          subpath: downloads
-
-      - type: volume
-        source: nfs_media
-        target: /whisparr
-        volume:
-          subpath: j/whisparr
-
-volumes:
-  # Pull the infrastructure shares you defined in your volumes stack
-  nfs_media:
-    external: true
+      - /media/downloads:/downloads
+      - /media/j/whisparr:/whisparr
+    ports:
+      - 6969:6969
+    restart: unless-stopped
