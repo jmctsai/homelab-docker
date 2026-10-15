@@ -8,12 +8,7 @@ services:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
     volumes:
-      # Upload subpath from nfs_media (was /media/pictures via UPLOAD_LOCATION)
-      - type: volume
-        source: nfs_media
-        target: /usr/src/app/upload
-        volume:
-          subpath: pictures
+      - /media/pictures:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     env_file:
       - .env
@@ -67,5 +62,3 @@ services:
 
 volumes:
   model-cache:
-  nfs_media:
-    external: true
