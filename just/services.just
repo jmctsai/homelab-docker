@@ -1,53 +1,80 @@
+# Keep your existing SERVICES_DIR definition at the top of the file, e.g.:
+# SERVICES_DIR := "/path/to/services"
+
 # Start all services in a group, or a specific app
 [group('services')]
 up group app="":
     #!/usr/bin/env bash
+    shopt -s nullglob
     if [[ -n "{{app}}" ]]; then
-        (cd {{SERVICES_DIR}}/{{group}}/{{app}} && docker compose up -d)
+        dirs=("{{SERVICES_DIR}}/{{group}}/{{app}}")
     else
-        for d in {{SERVICES_DIR}}/{{group}}/*/; do
-            echo "==> Starting $d"
-            (cd "$d" && docker compose up -d)
-        done
+        dirs=({{SERVICES_DIR}}/{{group}}/*/)
     fi
+    for d in "${dirs[@]}"; do
+        echo "==> Starting $d"
+        (cd "$d" && docker compose up -d) || echo "!! Failed: $d"
+    done
 
 # Stop all services in a group, or a specific app
 [group('services')]
 down group app="":
     #!/usr/bin/env bash
+    shopt -s nullglob
     if [[ -n "{{app}}" ]]; then
-        (cd {{SERVICES_DIR}}/{{group}}/{{app}} && docker compose down)
+        dirs=("{{SERVICES_DIR}}/{{group}}/{{app}}")
     else
-        for d in {{SERVICES_DIR}}/{{group}}/*/; do
-            echo "==> Stopping $d"
-            (cd "$d" && docker compose down)
-        done
+        dirs=({{SERVICES_DIR}}/{{group}}/*/)
     fi
+    for d in "${dirs[@]}"; do
+        echo "==> Stopping $d"
+        (cd "$d" && docker compose down) || echo "!! Failed: $d"
+    done
 
-# Restart all services in a group, or a specific app
+# Restart a group or specific app (down, then up, one app at a time)
 [group('services')]
 restart group app="":
-    just down {{group}} {{app}}
-    just up {{group}} {{app}}
+    #!/usr/bin/env bash
+    shopt -s nullglob
+    if [[ -n "{{app}}" ]]; then
+        dirs=("{{SERVICES_DIR}}/{{group}}/{{app}}")
+    else
+        dirs=({{SERVICES_DIR}}/{{group}}/*/)
+    fi
+    for d in "${dirs[@]}"; do
+        echo "==> Restarting $d"
+        (cd "$d" && docker compose down && docker compose up -d) || echo "!! Failed: $d"
+    done
 
-# Update a group or specific app (pull + restart)
+# Update a group or specific app (pull, then recreate only what changed, one app at a time)
 [group('services')]
 update group app="":
-    just pull {{group}} {{app}}
-    just restart {{group}} {{app}}
+    #!/usr/bin/env bash
+    shopt -s nullglob
+    if [[ -n "{{app}}" ]]; then
+        dirs=("{{SERVICES_DIR}}/{{group}}/{{app}}")
+    else
+        dirs=({{SERVICES_DIR}}/{{group}}/*/)
+    fi
+    for d in "${dirs[@]}"; do
+        echo "==> Updating $d"
+        (cd "$d" && docker compose pull && docker compose up -d --remove-orphans) || echo "!! Failed: $d"
+    done
 
-# Pull latest images for a group or specific app
+# Pull latest images for a group or specific app (no restart)
 [group('services')]
 pull group app="":
     #!/usr/bin/env bash
+    shopt -s nullglob
     if [[ -n "{{app}}" ]]; then
-        (cd {{SERVICES_DIR}}/{{group}}/{{app}} && docker compose pull)
+        dirs=("{{SERVICES_DIR}}/{{group}}/{{app}}")
     else
-        for d in {{SERVICES_DIR}}/{{group}}/*/; do
-            echo "==> Pulling $d"
-            (cd "$d" && docker compose pull)
-        done
+        dirs=({{SERVICES_DIR}}/{{group}}/*/)
     fi
+    for d in "${dirs[@]}"; do
+        echo "==> Pulling $d"
+        (cd "$d" && docker compose pull) || echo "!! Failed: $d"
+    done
 
 # Show containers (just status / just status all)
 [group('docker')]
@@ -75,3 +102,8 @@ logs app:
         exit 1
     fi
     (cd "$match" && docker compose logs -f)
+
+# Remove dangling images left behind by updates
+[group('docker')]
+prune:
+    docker image prune -af
