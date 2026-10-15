@@ -8,7 +8,6 @@
 # Ignore Application Runtime / Data Folders (CRITICAL)
 # -------------------------
 **/config/
-**/data/
 **/database/
 **/databases/
 
