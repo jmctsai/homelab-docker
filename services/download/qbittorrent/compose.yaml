@@ -31,7 +31,6 @@ services:
       # Try fix
       - DNS=1.1.1.1,1.0.0.1
       - DNSSEC=off
-
   qbittorrent:
     image: linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -45,25 +44,8 @@ services:
       # - DOCKER_MODS=ghcr.io/gilbn/theme.park:qbittorrent
       # - TP_THEME=dracula
     volumes:
-      # Keep local config local
       - ./qbittorrent-config:/config
-
-      # 1. Downloads subpath from nfs_media (was /media/downloads)
-      - type: volume
-        source: nfs_media
-        target: /downloads
-        volume:
-          subpath: downloads
-
-      # 2. Unsorted subpath from nfs_media (was /media/j/unsorted)
-      - type: volume
-        source: nfs_media
-        target: /unsorted
-        volume:
-          subpath: j/unsorted
-
+      - /media/downloads:/downloads
+      - /media/j/unsorted:/unsorted
       - /etc/localtime:/etc/localtime:ro
-
-volumes:
-  nfs_media:
-    external: true
+networks: {}

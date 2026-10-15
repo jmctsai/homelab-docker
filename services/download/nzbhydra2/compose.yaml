@@ -8,24 +8,7 @@ services:
       - PGID=1000
       - TZ=America/Vancouver
     volumes:
-      # 1. Config subpath from nfs_docker (was /docker/nzbhydra2/conf)
-      - type: volume
-        source: nfs_docker
-        target: /config
-        volume:
-          subpath: nzbhydra2/conf
-
-      # 2. Downloads subpath from nfs_media (was /media/downloads)
-      - type: volume
-        source: nfs_media
-        target: /downloads
-        volume:
-          subpath: downloads
+      - /docker/nzbhydra2/conf:/config
+      - /media/downloads:/downloads
     ports:
       - 5076:5076
-
-volumes:
-  nfs_docker:
-    external: true
-  nfs_media:
-    external: true
