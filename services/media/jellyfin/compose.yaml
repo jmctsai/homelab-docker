@@ -10,11 +10,7 @@ services:
     volumes:
       - ./config:/config
       - ./cache:/cache
-      # Whole media share, read-only (was /media:/media:ro)
-      - type: volume
-        source: nfs_media
-        target: /media
-        read_only: true
+      - /media:/media:ro
     devices:
       - /dev/dri:/dev/dri
     restart: "unless-stopped"
@@ -24,7 +20,3 @@ services:
     # Optional - may be necessary for docker healthcheck to pass if running in host network mode
     extra_hosts:
       - "host.docker.internal:host-gateway"
-
-volumes:
-  nfs_media:
-    external: true
